@@ -7,11 +7,11 @@
     <style>
         /* Basic Reset */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
         /* Form Container */
         .form-container {
            max-width: 600px;
-           
+
             padding: 20px;
             font-family: Arial, sans-serif;
 
@@ -23,26 +23,22 @@
             background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(168, 10, 10, 0.1);
-           
+
         }
-        
+
         /* Form Elements */
         .form-row {
             margin-bottom: 15px;
             display: flex;
            flex-direction: row;
-           
+
            grid-area: auto;
             justify-content: space-between;
             width: 100%;
+
         }
-        
-        label {
-            /* display: inline;
-            margin-left: 50px;
-            margin-bottom: 5px;
-            font-weight: bold; */
-        }
+
+
 /*         
         input[type="text"],
             input[type="email"],
@@ -55,14 +51,14 @@
             border-radius: 4px;
         }
          */
-        
+
         /* Radio Buttons */
         /* .radio-group {
             display: flex;
             gap: 15px;
             margin: 10px 0;
         } */
-        
+
         /* Submit Button */
         /* .submit-btn {
             background: #4CAF50;
@@ -74,11 +70,23 @@
             font-size: 16px;
             width: 100%;
         } */
-        
+
+        input[type="checkbox"]{
+
+            float: right;
+
+        }
         /* Terms Checkbox */
         .terms-check {
-            /* margin: 15px 0;
-            display: flex; */
+             margin: 30px;
+
+
+        }
+
+         label{
+            user-select: none;         /* Standard */
+
+
         }
 
         h1{
@@ -101,50 +109,71 @@
 <body>
     <div class="form-container">
         <h1>Sign Up</h1>
-        <form action="form.php" method="POST">
+        <form action="form.php" method="POST" onsubmit=" return validateForm()">
             <!-- Name Fields -->
             <div class="form-row">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter full name" >
             </div>
-            
+
             <div class="form-row">
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter last name" >
             </div>
-            
+
             <div class="form-row">
                 <label for="screenName">Screen Name</label>
-                <input type="text" id="screenName" name="screenName" placeholder="Enter screen name" required>
+                <input type="text" id="screenName" name="screenName" placeholder="Enter screen name" >
             </div>
-            
+
             <!-- Date of Birth -->
             <div class="form-row">
                 <label>Date of Birth</label>
                 <div class="dob-fields">
-                    <input type="date" id="birthdate" name="birthdate">
+                    <input type="date" id="birthdate" name="birthdate" onchange="validateDate()" required>
                 </div>
             </div>
-            
+
             <!-- Gender -->
             <div class="form-row">
                 <label>Gender</label>
                 <div class="radio-group">
                     <label><input type="radio" name="gender" value="male" required> Male</label>
-                    <label><input type="radio" name="gender" value="female"> Female</label>
+                    <label><input type="radio" name="gender" value="female" required> Female</label>
                 </div>
             </div>
-            
-            <!-- Other Fields -->
+
             <div class="form-row">
                 <label for="country">Country</label>
                 <select id="country" name="country" required>
                     <option value="">Select country</option>
-                    <option value="US">United States</option>
-                    <!-- Add other countries -->
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="EG">Egypt</option>
+                    <option value="IQ">Iraq</option>
+                    <option value="JO">Jordan</option>
+                    <option value="KW">Kuwait</option>
+                    <option value="LB">Lebanon</option>
+                    <option value="OM">Oman</option>
+                    <option value="QA">Qatar</option>
+                    <option value="SY">Syria</option>
+                    <option value="YE">Yemen</option>
+                    <option value="BH">Bahrain</option>
+                    <option value="PS">Palestine</option>
+                    <option value="IR">Iran</option>
+                    <option value="TR">Turkey</option>
+                    <option value="DZ">Algeria</option>
+                    <option value="MA">Morocco</option>
+                    <option value="TN">Tunisia</option>
+                    <option value="LY">Libya</option>
+                    <option value="SD">Sudan</option>
+                    <option value="SO">Somalia</option>
+                    <option value="DJ">Djibouti</option>
+                    <option value="MR">Mauritania</option>
+
                 </select>
             </div>
-            
+
             <div class="form-row">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter email" required>
@@ -154,30 +183,119 @@
                 <label for="phone">Phone</label>
                 <input type="tel" id="phone" name="phone" placeholder="Enter Phone" required>
             </div>
-            
+
             <div class="form-row">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Create password" required>
             </div>
-            
+
             <div class="form-row">
                 <label for="confirmPassword">Confirm Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat password" required>
             </div>
-            
+
             <!-- Terms Agreement -->
             <div class="terms-check">
                 <label>
-                    I agree to the Terms of Use
-                </label>
+                    I agree to the Terms of Use 
+
                     <input type="checkbox" name="terms" required>
-                   
-                
+
+                </label>
             </div>
-            
+
             <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Sign Up</button>
+            <button type="submit" class="submit-btn" onClick="validateForm()">Sign Up</button>
         </form>
     </div>
+
+
+
+    <script>
+
+
+
+        function validatePassword() {
+
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirmPassword");
+
+
+            if (password.value != confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords Don't Match");
+            return false;
+            } else {
+
+                confirmPassword.setCustomValidity('');
+                return true;
+            }
+        }
+
+        function validatePhone() {
+
+            const phone = document.getElementById("phone");
+
+            const phoneValue = phone.value.trim();
+            const pattern = /^\d{10}$/;
+
+
+            const isValid = pattern.test(phoneValue);
+
+
+            if (!isValid) {
+
+                phone.setCustomValidity("Please enter a valid phone number (10 digits).");
+                return false;
+            }  else {
+                phone.setCustomValidity('');
+                return true;
+            }
+
+        }
+
+        function validateDate() {
+
+            let birthdate = document.getElementById("birthdate");
+            const selectedDate = new Date(birthdate.value);
+            const currentDate = new Date();
+
+            if (selectedDate > currentDate|| (selectedDate.getFullYear() < currentDate.getFullYear() - 130) ) {
+                birthdate.setCustomValidity("Please select a valid date of birth.");
+
+                return false;
+            }else {
+                birthdate.setCustomValidity('');
+                return true;
+            }
+
+        }
+        function validateForm() {
+            const fullName = document.getElementById("fullName");
+            const lastName = document.getElementById("lastName");
+
+
+
+
+            if (fullName.value.length < 3) {
+                fullName.setCustomValidity("Full name and last name must be at least 3 characters long.");
+                return false;
+            }else {
+                fullName.setCustomValidity('');
+            }
+            if (lastName.value.length < 3) {
+                lastName.setCustomValidity("Full name and last name must be at least 3 characters long.");
+                return false;
+            }else {
+                lastName.setCustomValidity('');
+            }
+
+            return (validatePassword()&&validatePhone()&&validateDate());
+
+        }
+    </script>
+
+
+
+
 </body>
 </html>

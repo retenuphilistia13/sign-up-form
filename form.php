@@ -46,14 +46,13 @@
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Get form data and sanitize
-            $firstName = htmlspecialchars($_POST['firstName']?? '');
+            $firstName = htmlspecialchars($_POST['fullName']?? '');
             $lastName = htmlspecialchars($_POST['lastName']?? '');
            
-            $birthDate = htmlspecialchars($_POST['birthdate'] ?? '');
-
-           
-    $birthDateObj = new DateTime($birthdate);
-    $formattedDate = $birthDateObj->format('d/m/Y'); 
+        $birthDate = htmlspecialchars($_POST['birthDate'] ?? '');
+            
+        $birthDateObj = new DateTime($birthDate);
+        $formattedDate = $birthDateObj->format('d/m/Y'); 
      
             $country = htmlspecialchars($_POST['country'] ?? '');
             $email = htmlspecialchars($_POST['email'] ?? '');
